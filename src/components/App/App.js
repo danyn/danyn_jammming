@@ -3,8 +3,19 @@ import './App.css';
 import {SearchBar} from '../SearchBar/SearchBar';
 import {SearchResults} from '../SearchResults/SearchResults';
 import {Playlist} from '../Playlist/Playlist';
+import {TestData} from '../utils/Spotify';
 
 class App extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+        searchResults:TestData()
+      }//state
+    };//constructor
+
+
+
   render() {
     return (
       <div>
@@ -12,7 +23,7 @@ class App extends Component {
         <div className="App">
           <SearchBar/>
           <div className="App-playlist">
-            <SearchResults />
+            <SearchResults searchResults={this.state.searchResults} />
             <Playlist />
           </div>
         </div>{/* div.App */}
