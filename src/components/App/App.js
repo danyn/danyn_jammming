@@ -21,11 +21,13 @@ class App extends Component {
 
     };//constructor
 
-    addTrack(track){
+    addTrack(trackObj){
       // debug code
       // console.log(track);
       // track.target.innerHTML = "I was clicked addTrack()";
-      
+      console.log('app.js: addTrack(){..  ');
+      console.log(trackObj);
+
     }// addTrack()
 
 

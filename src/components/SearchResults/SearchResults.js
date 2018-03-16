@@ -7,7 +7,7 @@ export class SearchResults extends React.Component{
 
   render(){
     // debug code
-        console.log(this.props);
+        // console.log(this.props);
         // console.log(this.props.searchResults.map(track => track.name));
         // console.log(this.props.searchResults[0]);
         // console.log(this.props.searchResults);

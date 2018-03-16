@@ -3,6 +3,21 @@ import './Track.css';
 
 export class Track extends React.Component{
 
+
+  constructor(props){
+    super(props);
+// event handlers
+    this.addTrack = this.addTrack.bind(this);
+  }//constructor
+
+  addTrack(){
+    // debug
+    // console.log('track.js: addTrack(){..');
+    // console.log(this.props.track);
+    this.props.onAdd(this.props.track);
+  }// addTrack()
+
+
   render(){
     return(
       <div className="Track">
@@ -10,8 +25,9 @@ export class Track extends React.Component{
           <h3> {this.props.track.name} </h3>
           <p> {this.props.track.artist} | {this.props.track.album} </p>
         </div>
-        <a className="Track-action">
+        <a className="Track-action" onClick={this.addTrack}>
           {/* + or - will go here */}
+          +
         </a>
       </div>
     );// return
