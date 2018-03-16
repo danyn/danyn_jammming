@@ -15,7 +15,18 @@ class App extends Component {
         playlistTracks:PlaylistData(),
         playlistName:'Danyn\'s Favorites'
       }//state
+
+      // event bindings
+      this.addTrack = this.addTrack.bind(this);
+
     };//constructor
+
+    addTrack(track){
+      // debug code
+      // console.log(track);
+      // track.target.innerHTML = "I was clicked addTrack()";
+      
+    }// addTrack()
 
 
 
@@ -26,7 +37,7 @@ class App extends Component {
         <div className="App">
           <SearchBar/>
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} />
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
             <Playlist playlistName={this.state.playlistName}  playlistTracks={this.state.playlistTracks} />
           </div>
         </div>{/* div.App */}
