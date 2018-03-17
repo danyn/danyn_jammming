@@ -22,39 +22,33 @@ class App extends Component {
       this.updatePlaylistName = this.updatePlaylistName.bind(this);
 
     };//constructor
-
+  // functions that manage state of othe UI
   updatePlaylistName(name){
     console.log('app.js:updatePlayListName:')
     console.log(name);
     this.setState({playlistName:name})
   }//updatePlaylistName
 
-  addTrack(trackObjCurrent){
+  addTrack(trackObjSelected){
 
-      if(this.state.playlistTracks.every( track => track.id !== trackObjCurrent.id)){
-        let addTrack = [trackObjCurrent];
+      if(this.state.playlistTracks.every( track => track.id !== trackObjSelected.id)){
+        let addTrack = [trackObjSelected];
         let newState = addTrack.concat(this.state.playlistTracks);
+        
         this.setState({
           playlistTracks:newState
-        });//setState()
-    }//if
+        });
+
+    }//if track.id not playlist
   }// addTrack()
 
-  removeTrack(trackObjCurrent){
+  removeTrack(trackObjSelected){
     let newState = this.state.playlistTracks.filter(
-                   trackObj => trackObj.id !== trackObjCurrent.id);
+                   trackObj => trackObj.id !== trackObjSelected.id);
 
       this.setState({
         playlistTracks:newState
       });
-
-
-    // debug
-    console.log('app.js:');
-    console.log("trackObjCurrent");
-    console.log(trackObjCurrent);
-    console.log('newState');
-    console.log(newState);
 
   }//removeTrack()
 
