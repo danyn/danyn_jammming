@@ -18,6 +18,7 @@ class App extends Component {
 
       // event bindings
       this.addTrack = this.addTrack.bind(this);
+      this.removeTrack = this.removeTrack.bind(this);
 
     };//constructor
 
@@ -32,6 +33,24 @@ class App extends Component {
     }//if
   }// addTrack()
 
+  removeTrack(trackObjCurrent){
+    let newState = this.state.playlistTracks.
+                  filter(trackObj => trackObj.id !== trackObjCurrent.id );
+
+      this.setState({
+        playlistTracks:newState
+      });
+
+
+    // debug
+    console.log('app.js:');
+    console.log("trackObjCurrent");
+    console.log(trackObjCurrent);
+    console.log('newState');
+    console.log(newState);
+
+  }//removeTrack()
+
 
   render() {
     return (
@@ -41,7 +60,7 @@ class App extends Component {
           <SearchBar/>
           <div className="App-playlist">
             <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
-            <Playlist playlistName={this.state.playlistName}  playlistTracks={this.state.playlistTracks} />
+            <Playlist playlistName={this.state.playlistName}  playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} />
           </div>
         </div>{/* div.App */}
       </div>

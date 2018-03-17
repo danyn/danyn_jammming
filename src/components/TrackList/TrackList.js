@@ -19,7 +19,9 @@ export class TrackList extends React.Component{
               key={trackObj.id}
               track={trackObj}
               onAdd={this.props.onAdd}
+              onRemove={this.props.onRemove}
               caller={this.props.caller}
+
             />
             )//map
         }
