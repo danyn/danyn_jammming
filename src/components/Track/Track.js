@@ -19,16 +19,24 @@ export class Track extends React.Component{
 
 
   render(){
+    console.log('Track.js:')
+    console.log("this.props.caller === 'SearchResults'")
+    console.log(this.props.caller);
+    console.log(this.props.caller === 'SearchResults')
     return(
       <div className="Track">
         <div className="Track-information">
           <h3> {this.props.track.name} </h3>
           <p> {this.props.track.artist} | {this.props.track.album} </p>
         </div>
-        <a className="Track-action" onClick={this.addTrack}>
-          {/* + or - will go here */}
-          +
-        </a>
+        {/* track action */}
+        {this.props.caller === 'SearchResults' &&
+          <a className="Track-action" onClick={this.addTrack}> + </a>
+        }
+        {this.props.caller === 'Playlist' &&
+          <a className="Track-action"> - </a>
+        }
+
       </div>
     );// return
   }// render

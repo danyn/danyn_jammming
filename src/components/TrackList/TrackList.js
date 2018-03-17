@@ -14,7 +14,15 @@ export class TrackList extends React.Component{
         {/* debug code */}
         {/* <span onClick={this.props.onAdd}>onAdd()</span> */}
 
-        {this.props.tracks.map(trackObj => <Track key={trackObj.id} track={trackObj} onAdd={this.props.onAdd}/>)}
+        {this.props.tracks.map(trackObj =>
+           <Track
+              key={trackObj.id}
+              track={trackObj}
+              onAdd={this.props.onAdd}
+              caller={this.props.caller}
+            />
+            )//map
+        }
 
       </div>
     );// return
