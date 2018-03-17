@@ -19,8 +19,15 @@ class App extends Component {
       // event bindings
       this.addTrack = this.addTrack.bind(this);
       this.removeTrack = this.removeTrack.bind(this);
+      this.updatePlaylistName = this.updatePlaylistName.bind(this);
 
     };//constructor
+
+  updatePlaylistName(name){
+    console.log('app.js:updatePlayListName:')
+    console.log(name);
+    this.setState({playlistName:name})
+  }//updatePlaylistName
 
   addTrack(trackObjCurrent){
 
@@ -34,8 +41,8 @@ class App extends Component {
   }// addTrack()
 
   removeTrack(trackObjCurrent){
-    let newState = this.state.playlistTracks.
-                  filter(trackObj => trackObj.id !== trackObjCurrent.id );
+    let newState = this.state.playlistTracks.filter(
+                   trackObj => trackObj.id !== trackObjCurrent.id);
 
       this.setState({
         playlistTracks:newState
@@ -53,6 +60,10 @@ class App extends Component {
 
 
   render() {
+    // debug
+      console.log('app.js:render:')
+      console.log(this.state);
+
     return (
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
@@ -60,7 +71,12 @@ class App extends Component {
           <SearchBar/>
           <div className="App-playlist">
             <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
-            <Playlist playlistName={this.state.playlistName}  playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} />
+            <Playlist
+               playlistName={this.state.playlistName}
+               playlistTracks={this.state.playlistTracks}
+               onRemove={this.removeTrack}
+               onNameChange={this.updatePlaylistName}
+             />
           </div>
         </div>{/* div.App */}
       </div>
