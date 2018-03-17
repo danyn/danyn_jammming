@@ -29,8 +29,14 @@ class App extends Component {
   //functions that manage state of the Spotify API interface
 
   savePlaylist(){
+
+    const trackURIs = this.state.playlistTracks.map(
+          trackObj => trackObj.uri  );
+
     console.log('app.js:savePlaylist');
-    console.log(' ');
+    console.log(trackURIs);      
+
+
   }//savePlaylist
 
   // functions that manage state of othe UI
