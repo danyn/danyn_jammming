@@ -2,19 +2,19 @@ export function TrackData(){
   return [{
     album:'Songs for the Last Day On Earth' ,
     artist: 'David Usher',
-    name: 'Lonely People',
+    name: 'B',
     id:'6rqhFgbbKwnb9MLmUQDhG0'
   },
   {
     album:'Songs for the Last Day In Space' ,
     artist: 'Astro Boy',
-    name: 'Star Light',
+    name: 'BB',
     id:'6rqhFgbbKwnb9MLmUQDhG1'
   },
   {
     album:'Yoko and John do funny Stuff' ,
     artist: 'John Lennon',
-    name: 'Working Class Hero',
+    name: 'BBB',
     id:'6rqhFgbbKwnb9MLmUQDhG2'
   }
   ];
@@ -22,21 +22,21 @@ export function TrackData(){
 
 export function PlaylistData(){
   return [{
-    album:'Songs for the Last Day On Earth' ,
+    album:'some A' ,
     artist: 'David Usher',
-    name: 'Fire Fighter',
+    name: 'A',
     id:'6rqhFgbbKwnb9MLmUQDhG9'
   },
   {
-    album:'Songs for the Last Day In Space' ,
+    album:'some AA' ,
     artist: 'Starman',
-    name: 'Star Light',
+    name: 'AA',
     id:'6rqhFgbbKwnb9MLmUQDhG8'
   },
   {
-    album:'Yoko and John do funny Stuff' ,
+    album:'some AAA' ,
     artist: 'John Lennon',
-    name: 'Woman',
+    name: 'AAA',
     id:'6rqhFgbbKwnb9MLmUQDhG7'
   }
   ];

@@ -21,15 +21,16 @@ class App extends Component {
 
     };//constructor
 
-    addTrack(trackObj){
-      // debug code
-      // console.log(track);
-      // track.target.innerHTML = "I was clicked addTrack()";
-      console.log('app.js: addTrack(){..  ');
-      console.log(trackObj);
+  addTrack(trackObjCurrent){
 
-    }// addTrack()
-
+      if(this.state.playlistTracks.every( track => track.id !== trackObjCurrent.id)){
+        let addTrack = [trackObjCurrent];
+        let newState = addTrack.concat(this.state.playlistTracks);
+        this.setState({
+          playlistTracks:newState
+        });//setState()
+    }//if
+  }// addTrack()
 
 
   render() {
