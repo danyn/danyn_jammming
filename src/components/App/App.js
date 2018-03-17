@@ -16,12 +16,23 @@ class App extends Component {
         playlistName:'Danyn\'s Favorites'
       }//state
 
-      // event bindings
+      // event bindings for the UI
       this.addTrack = this.addTrack.bind(this);
       this.removeTrack = this.removeTrack.bind(this);
       this.updatePlaylistName = this.updatePlaylistName.bind(this);
 
+      //event bindings for the Spotify API
+      this.savePlaylist = this.savePlaylist.bind(this);
+
     };//constructor
+
+  //functions that manage state of the Spotify API interface
+
+  savePlaylist(){
+    console.log('app.js:savePlaylist');
+    console.log(' ');
+  }//savePlaylist
+
   // functions that manage state of othe UI
   updatePlaylistName(name){
     console.log('app.js:updatePlayListName:')
@@ -34,7 +45,7 @@ class App extends Component {
       if(this.state.playlistTracks.every( track => track.id !== trackObjSelected.id)){
         let addTrack = [trackObjSelected];
         let newState = addTrack.concat(this.state.playlistTracks);
-        
+
         this.setState({
           playlistTracks:newState
         });
@@ -70,6 +81,7 @@ class App extends Component {
                playlistTracks={this.state.playlistTracks}
                onRemove={this.removeTrack}
                onNameChange={this.updatePlaylistName}
+               onSave={this.savePlaylist}
              />
           </div>
         </div>{/* div.App */}
