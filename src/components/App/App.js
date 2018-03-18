@@ -23,10 +23,14 @@ class App extends Component {
 
       //event bindings for the Spotify API
       this.savePlaylist = this.savePlaylist.bind(this);
+      this.search = this.search.bind(this);
 
     };//constructor
 
   //functions that manage state of the Spotify API interface
+  search(term){
+    console.log(term);
+  }//search
 
   savePlaylist(){
 
@@ -34,7 +38,7 @@ class App extends Component {
           trackObj => trackObj.uri  );
 
     console.log('app.js:savePlaylist');
-    console.log(trackURIs);      
+    console.log(trackURIs);
 
 
   }//savePlaylist
@@ -79,7 +83,7 @@ class App extends Component {
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-          <SearchBar/>
+          <SearchBar onSearch={this.search} />
           <div className="App-playlist">
             <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
             <Playlist
