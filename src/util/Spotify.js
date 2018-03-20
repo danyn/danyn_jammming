@@ -1,5 +1,5 @@
 
-//if auth has responded it contains the token and expires
+//if auth has responded it contains the token and expires_in information
 
 let accessToken;
 
@@ -32,13 +32,26 @@ function composeTracks (tracks) {
   });//map()
 }//composeTracks
 
+function fetchEndpoint(url, header){
+
+  return fetch(url, header).then(response => {
+           if(response.ok){
+           return response.json()
+         }//if
+           throw new Error('request failed.');
+         }, networkError => {
+           console.log(networkError.message);
+         }).then(jsonResponse => {
+              return jsonResponse;
+           });
+
+}//fetchEndpoint
+
+
 export const Spotify = {
 
  getAccessToken: ()=> {
-   //maintain some state to store the key
-   // accessToken = sessionStorage.getItem("accessToken");
-   // expiresIn = sessionStorage.getItem("expiresIn");
-    //get information from the url in order to assess the state of the auth
+
     let authResponded = window.location.href;
     //match returns an array or null if not found
     let setAccessToken = authResponded.match(/access_token=([^&]*)/);
@@ -67,6 +80,7 @@ export const Spotify = {
     }
 
  },//getAccessToken
+
  search : (term) => {
 
    const url = `https://api.spotify.com/v1/search?type=track&q=${term}`;
@@ -74,16 +88,7 @@ export const Spotify = {
                     headers: {Authorization: `Bearer ${accessToken}`}
                   };
 
-   return fetch(url, header).then(response => {
-            if(response.ok){
-            return response.json()
-          }//if
-            throw new Error('request failed.');
-          }, networkError => {
-            console.log(networkError.message);
-          }).then(jsonResponse => {
-               return composeTracks(jsonResponse.tracks.items);
-            });
+      return fetchEndpoint(url, header).then(jsonResponse => composeTracks(jsonResponse.tracks.items));
 
  },//search
 
@@ -97,59 +102,30 @@ export const Spotify = {
                     headers: {Authorization: `Bearer ${accessToken}`}
                   };
   //get ther user id
-  fetch(url, header).then(response => {
-           if(response.ok){
-           return response.json()
-         }//if
-           throw new Error('request failed.');
-         }, networkError => {
-           console.log(networkError.message);
-         }).then(jsonResponse => {
-              userID = jsonResponse.id;
-              // displayName = jsonResponse.display_name;
-              // console.log("userID");
-              // console.log(userID);
-              fetch(`https://api.spotify.com/v1/users/${userID}/playlists`,{
+  fetchEndpoint(url, header).then(jsonResponse => {
+    userID = jsonResponse.id;
+    url = `https://api.spotify.com/v1/users/${userID}/playlists`;
+    header = {
+              method: 'post',
+              headers:{
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({name:name})
+            };
+    fetchEndpoint(url, header).then(jsonResponse => {
+      let playlistID = jsonResponse.id;
+      url = `https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`;
+      header = {
                 method: 'post',
                 headers:{
                   Authorization: `Bearer ${accessToken}`,
                   'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({name:name})})
-                .then(response => {
-      	           if(response.ok){
-                      return response.json();
-                    }
-      	           throw new Error('Request failed!');
-                 }, networkError => console.log(networkError.message) )
-                .then( jsonResponse => {
-                  let playlistID = jsonResponse.id;
-                  url = `https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`;
-                  // console.log(url);
-                  //array of track uri strings
-                  // console.log(URIs);
-                  fetch(url,{
-                    method: 'post',
-                    headers:{
-                      Authorization: `Bearer ${accessToken}`,
-                      'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({uris:URIs})})
-                    .then(response => {
-                      if(response.ok){
-                         return response.json();
-                       }
-                      throw new Error('Request failed!');
-                    }, networkError => console.log(networkError.message) )
-                    .then( jsonResponse => jsonResponse )// then for the tracks endpoint
-
-                  }) //then for the users/userid/playlist endpoint
-           }) //outermost then json response for the /v1/me endpoint
-
-
-
-
+                body: JSON.stringify({uris:URIs})
+              };
+      fetchEndpoint(url, header).then(jsonResponse => console.log(jsonResponse))
+    })
+  })
  }//savePlaylist
-
-
 }//Spotify
