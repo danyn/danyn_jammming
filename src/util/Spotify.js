@@ -87,5 +87,69 @@ export const Spotify = {
 
  },//search
 
+ savePlaylist: (name, URIs) => {
+   if(!name || !URIs){
+     return;
+   }
+   let userID;
+   let url = 'https://api.spotify.com/v1/me'
+   let header = {
+                    headers: {Authorization: `Bearer ${accessToken}`}
+                  };
+  //get ther user id
+  fetch(url, header).then(response => {
+           if(response.ok){
+           return response.json()
+         }//if
+           throw new Error('request failed.');
+         }, networkError => {
+           console.log(networkError.message);
+         }).then(jsonResponse => {
+              userID = jsonResponse.id;
+              // displayName = jsonResponse.display_name;
+              // console.log("userID");
+              // console.log(userID);
+              fetch(`https://api.spotify.com/v1/users/${userID}/playlists`,{
+                method: 'post',
+                headers:{
+                  Authorization: `Bearer ${accessToken}`,
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({name:name})})
+                .then(response => {
+      	           if(response.ok){
+                      return response.json();
+                    }
+      	           throw new Error('Request failed!');
+                 }, networkError => console.log(networkError.message) )
+                .then( jsonResponse => {
+                  let playlistID = jsonResponse.id;
+                  url = `https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`;
+                  // console.log(url);
+                  //array of track uri strings
+                  // console.log(URIs);
+                  fetch(url,{
+                    method: 'post',
+                    headers:{
+                      Authorization: `Bearer ${accessToken}`,
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({uris:URIs})})
+                    .then(response => {
+                      if(response.ok){
+                         return response.json();
+                       }
+                      throw new Error('Request failed!');
+                    }, networkError => console.log(networkError.message) )
+                    .then( jsonResponse => jsonResponse )// then for the tracks endpoint
+
+                  }) //then for the users/userid/playlist endpoint
+           }) //outermost then json response for the /v1/me endpoint
+
+
+
+
+ }//savePlaylist
+
 
 }//Spotify
