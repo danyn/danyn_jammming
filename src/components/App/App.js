@@ -3,8 +3,11 @@ import './App.css';
 import {SearchBar} from '../SearchBar/SearchBar';
 import {SearchResults} from '../SearchResults/SearchResults';
 import {Playlist} from '../Playlist/Playlist';
-import {TrackData, PlaylistData}    from '../utils/Spotify';
+import {Spotify} from '../../util/Spotify';
 
+
+// dummy data
+import {TrackData, PlaylistData}    from '../utils/Spotify';
 
 class App extends Component {
 
@@ -29,7 +32,13 @@ class App extends Component {
 
   //functions that manage state of the Spotify API interface
   search(term){
-    console.log(term);
+    let responded = Spotify.getAccessToken();
+
+    if(responded){
+      Spotify.search(term);
+    }else{
+      console.log("no valid response");
+    }
   }//search
 
   savePlaylist(){
