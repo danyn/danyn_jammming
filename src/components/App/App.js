@@ -14,8 +14,8 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-        searchResults:TrackData(),
-        playlistTracks:PlaylistData(),
+        searchResults:[],
+        playlistTracks:[],
         playlistName:'Danyn\'s Favorites'
       }//state
 
@@ -35,7 +35,9 @@ class App extends Component {
     let responded = Spotify.getAccessToken();
 
     if(responded){
-      Spotify.search(term);
+      // console.log(Spotify.search(term));
+      Spotify.search(term).then(results => this.setState({searchResults:results}));
+
     }else{
       console.log("no valid response");
     }

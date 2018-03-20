@@ -15,6 +15,23 @@ const token = '&response_type=token';
 //full auth request endpoint
 const auth = authBase + clientId + redirectUri + scope + token;
 
+
+// helper function
+
+function composeTracks (tracks) {
+  //return an array of objects with the right data keys for the app
+ // return tracks;
+  return tracks.map(track => {
+   return  {
+      album: track.album.name,
+      artist: track.artists[0].name,
+      name: track.name,
+      id:track.id,
+      uri: track.uri
+    }//data type
+  });//map()
+}//composeTracks
+
 export const Spotify = {
 
  getAccessToken: ()=> {
@@ -57,11 +74,18 @@ export const Spotify = {
                     headers: {Authorization: `Bearer ${accessToken}`}
                   };
 
-   fetch(url, header).then(function(response){
-     return response.json()
-      }).then(function(theJson){
-     console.log(theJson);
-   });
- }//search
+   return fetch(url, header).then(response => {
+            if(response.ok){
+            return response.json()
+          }//if
+            throw new Error('request failed.');
+          }, networkError => {
+            console.log(networkError.message);
+          }).then(jsonResponse => {
+               return composeTracks(jsonResponse.tracks.items);
+            });
+
+ },//search
+
 
 }//Spotify
