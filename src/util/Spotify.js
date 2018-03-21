@@ -1,11 +1,12 @@
-
+import {ClientId} from '../private/Info';
 //if auth has responded it contains the token and expires_in information
 
 let accessToken;
 
 //auth endpoint vars
 const authBase = 'https://accounts.spotify.com/authorize?' ;
-const clientId = 'client_id=f6d4f2ed4b3944ca9db3761d193c1813';
+// const clientId = 'client_id=f6d4f2ed4b3944ca9db3761d193c1813';
+const clientId = ClientId;
 const redirectUri = '&redirect_uri=http:%2F%2Flocalhost:3000/';
 const scope = '&scope=playlist-modify-public';
 const token = '&response_type=token';
