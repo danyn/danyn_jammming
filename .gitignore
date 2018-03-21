@@ -22,4 +22,4 @@ yarn-error.log*
 
 #private info needed for Auth
 
-/src/private
+#/src/private
